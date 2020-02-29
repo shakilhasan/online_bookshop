@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for u in u %}
+<ul class="list-group">
+ <li class="list-group-item list-group-item-success" href="#" >{{u.username}}</li>
+      {% for order in order %}
+       {% if order.user == u %}
+
+        <div class="list-group">
+            <a href="{% url 'order_detail' order.id %}" class="list-group-item list-group-item-action list-group-item-primary">
+              {{order.id}}</a>
+
+          </div>
+        {% endif %}
+
+    {% endfor %}
+
+</ul>
+
+{% endfor %}
+
+{% endblock %}

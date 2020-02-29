@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% for catagory in catagory %}
+
+<div class="card" >
+  <div class="card bg-Dark text-white">
+  <div class="card-body">
+    <a  class="card-title" href="{% url 'catagory_detail' catagory.id %}" ><h4 class="card-title">{{ catagory.name }}</h4></a>
+  </div>
+</div>
+</div>
+{% endfor %}
+
+{% endblock %}

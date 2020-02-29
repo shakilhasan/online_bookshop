@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card" style="width:250px ;margin-left:400px">
+  <img class="card-img-top" src="{{ book.cover.url }}" alt="Card image">
+  <div class="card-body">
+    <h4 class="card-title" href="{% url 'book_detail' book.id %}">{{ book.name }}</h4>
+    <p class="card-text">{{ book.author }}</p>
+    <p class="card-text">price: {{ book.price }}</p>
+    {% if user.is_authenticated %}
+
+    {% if not user.is_superuser %}
+    <a href="{% url 'card_add' book.id %}" class="btn btn-primary">অর্ডার করুন</a>
+    {% endif %}
+    {% if user.is_superuser %}
+
+    <a class="btn btn-danger" href="{% url 'book_edit' book.id %}">Edit</a>
+    <a class="btn btn-danger" href="{% url 'book_delete' book.id %}">Delete</a>
+    <p class="card-text">{{ book.description }}</p>
+    {% endif  %}
+
+    {% endif  %}
+
+  </div>
+</div>
+
+{% endblock %}

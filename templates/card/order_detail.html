@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <div class="list-group">
+      <a href="#" class="list-group-item list-group-item-action list-group-item-primary">
+        Order Id:{{order.id}}<button onclick="window.location.href = '{% url 'order_delete' order.id %}';"
+        type="button" class="btn btn-danger" style="float:right;">Delete</button></a>
+    </div>
+  <h2>Shipping Address:</h2>
+  <ul class="list-group">
+    <li class="list-group-item list-group-item-success">User:{{order.user}}</li>
+    <li class="list-group-item list-group-item-secondary">Name:{{order.name}}</li>
+    <li class="list-group-item list-group-item-info">Phone:{{order.phone}}</li>
+    <li class="list-group-item list-group-item-primary">Aphone:{{order.aphone}}</li>
+    <li class="list-group-item list-group-item-success">Country:{{order.country}}</li>
+    <li class="list-group-item list-group-item-primary">District:{{order.district}}</li>
+    <li class="list-group-item list-group-item-info">Thana:{{order.thana}}</li>
+    <li class="list-group-item list-group-item-secondary">Address:{{order.address}}</li>
+    <li class="list-group-item list-group-item-success">Total:{{order.total}}</li>
+
+  </ul>
+</div>
+
+<h2>Items:</h2>
+{% for card in card %}
+{% if card.sold == True %}
+
+<div class="card" style="width:160px; margin-left:10px; float:left">
+  <a href="#" class="btn btn-primary">{{ card.user }}</a>
+
+  <a href="#"><img class="card-img-top" src="{{ card.book.cover.url }}"  alt="Card image"></a>
+  <div class="card-body">
+    <a  class="card-title" href="#" ><h4 class="card-title">{{ card.book.name }}</h4></a>
+    <p class="card-text">{{ card.book.author }}</p>
+    <p class="card-text">price: {{ card.book.price }}</p>
+    <p class="card-text">amount: {{ card.amount }}</p>
+
+    <a class="btn btn-danger" href="#">Edit</a>
+    <a class="btn btn-danger" href="{% url 'card_delete' card.id %}">Finish</a>
+  </div>
+</div>
+{% endif %}
+
+{% endfor %}
+
+{% endblock %}
