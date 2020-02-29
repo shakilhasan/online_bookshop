@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-import django_heroku  #new!
+import django_heroku  #new! for heroku
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'whitenoise.runserver_nostatic', # new!
+    'whitenoise.runserver_nostatic', # new! for heroku
     'django.contrib.staticfiles',
     'book_info',
     'buy',
@@ -45,7 +45,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', # new!
+    'whitenoise.middleware.WhiteNoiseMiddleware', # new! for heroku
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -121,7 +121,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles") # new!
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles") # new! for heroku
 
 
 STATIC_URL = '/static/'
@@ -130,12 +130,12 @@ STATICFILES_DIRS = [
 os.path.join(BASE_DIR, "static"),
 ]
 
-#STATICFILES_STORAGE ='whitenoise.storage.CompressedManifestStaticFilesStorage' #new!
-STATICFILES_STORAGE ='whitenoise.django.GzipManifestStaticFilesStorage' #new!
+#STATICFILES_STORAGE ='whitenoise.storage.CompressedManifestStaticFilesStorage' #new! for heroku
+STATICFILES_STORAGE ='whitenoise.django.GzipManifestStaticFilesStorage' #new! for heroku
 
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Activate Django-Heroku.
-django_heroku.settings(locals()) #new!
+django_heroku.settings(locals()) #new! for heroku

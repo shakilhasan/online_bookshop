@@ -14,7 +14,6 @@ hashids==1.2.0
 idna==2.9
 Markdown==3.2.1
 Pillow==7.0.0
-pkg-resources==0.0.0
 psycopg2==2.8.4
 python-decouple==3.3
 pytz==2019.3
