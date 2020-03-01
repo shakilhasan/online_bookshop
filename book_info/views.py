@@ -18,43 +18,47 @@ def book_detail(request,book_id):
 
 
 def catagory_add(request):
-    if request.method == 'POST':
-        form = CatagoryForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('catagory_add')
-    else :
-        form = CatagoryForm
-    return render(request, 'book_info/catagory_add.html', {'form':form})
+    if request.user.is_superuser:
+        if request.method == 'POST':
+            form = CatagoryForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('catagory_add')
+        else :
+            form = CatagoryForm
+        return render(request, 'book_info/catagory_add.html', {'form':form})
 
 
 def book_add(request):
-    if request.method == 'POST':
-        form = BookAddForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('book_add')
-    else:
-        form = BookAddForm
-    return render(request,'book_info/book_add.html', {'form':form})
+    if request.user.is_superuser:
+        if request.method == 'POST':
+            form = BookAddForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                return redirect('book_add')
+        else:
+            form = BookAddForm
+        return render(request,'book_info/book_add.html', {'form':form})
 
 
 def book_edit(request,book_id):
-    book = Book_info.objects.get(id=book_id)
-    if request.method == 'POST':
-        form = BookAddForm(request.POST, request.FILES, instance=book)
-        if form.is_valid():
-            form.save()
-            return redirect('book_home')
-    else:
-        form = BookAddForm(instance=book)
-    return render(request, 'book_info/book_edit.html', {'form':form})
+    if request.user.is_superuser:
+        book = Book_info.objects.get(id=book_id)
+        if request.method == 'POST':
+            form = BookAddForm(request.POST, request.FILES, instance=book)
+            if form.is_valid():
+                form.save()
+                return redirect('book_home')
+        else:
+            form = BookAddForm(instance=book)
+        return render(request, 'book_info/book_edit.html', {'form':form})
 
 
 def book_delete(request,book_id):
-    books = Book_info.objects.get(id=book_id)
-    books.delete()
-    return redirect('book_home')
+    if request.user.is_superuser:
+        books = Book_info.objects.get(id=book_id)
+        books.delete()
+        return redirect('book_home')
 
 def catagory_home(request):
     catagory = Catagory.objects.all()

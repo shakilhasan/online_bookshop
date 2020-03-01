@@ -2,15 +2,12 @@
 
 {% block content %}
   <h1>Payment</h1>
-
-
   <form class='form' id="login_form" method="post" action="checkout" >
             {% csrf_token %}
             Bikas: <input type="text" name="username" value="" size="50" />
             <br />
             Password: <input type="password" name="password" value="" size="50" />
             <br />
-
             <input type="submit" value="checkout" />
   </form>
 {% endblock content %}

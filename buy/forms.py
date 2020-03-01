@@ -15,4 +15,4 @@ class OrderForm(forms.ModelForm):
         model = Order
         #fields = ['user','name','phone','aphone','country','district','thana','address','total']
         #fields = '__all__'
-        fields = ['name','phone','aphone','country','district','thana','address','total']
+        fields = ['name','phone','aphone','country','district','thana','address']

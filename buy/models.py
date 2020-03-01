@@ -15,7 +15,8 @@ class Order(models.Model):
     thana = models.CharField(max_length=100,default=1)
     address = models.CharField(max_length=1000,default=1)
     total = models.IntegerField(default=1)
-
+    date = models.DateTimeField(auto_now=True)
+    
     def __str__(self):
         return str(self.id)
 

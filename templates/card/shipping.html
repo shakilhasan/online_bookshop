@@ -3,9 +3,18 @@
 {% block content %}
 <h1>Shipping Address</h1>
 <h5>Fill out your information</h5>
+<script> var total = 0; </script>
+{% for card in card %}
+{% if card.sold == False %}
+<script> var total = total+ {{ card.book.price }} *{{ card.amount }}; </script>
+{% endif %}
+{% endfor %}
 <form class="form" method="post" action="shipping">
     {% csrf_token %}
     {{form.as_p}}
+    <input id="myInput" type="hidden" name="total" value="0" size="50" />
+      <br />
     <input type="submit" value="submit" class="btn btn-primary" />
 </form>
+<script>  document.getElementById("myInput").value = total;</script>
 {% endblock content %}

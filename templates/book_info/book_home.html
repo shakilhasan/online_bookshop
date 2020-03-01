@@ -15,7 +15,7 @@
     <form  method="post" action="/card_add/">
       {% csrf_token %}
       <input type="hidden" name="book_id" value="{{ book.id }}">
-      Amount:<input list="amount" name="amount" style="width:50px;">
+      Amount:<input list="amount" name="amount" style="width:50px;" required>
       <datalist id="amount">
         <option value="1">
         <option value="2">
