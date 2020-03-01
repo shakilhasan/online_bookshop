@@ -2,6 +2,7 @@
 
 {% block content %}
 {% for u in u %}
+{% if not u.is_superuser %}
 <ul class="list-group">
  <li class="list-group-item list-group-item-success" href="#" >{{u.username}}</li>
       {% for order in order %}
@@ -14,6 +15,7 @@
     {% endfor %}
 </ul>
 <br>
+{% endif %}
 {% endfor %}
 
 {% endblock %}
