@@ -76,8 +76,7 @@ def shipping(request):
         total = request.POST.get('total')
         form = OrderForm(request.POST)
         form.save()
-        li=list(Order.objects.values('id'))
-        last=li[0]['id']
+        last=str(Order.objects.latest('id'))
         Order.objects.filter(id=last).update(user=u)
         Order.objects.filter(id=last).update(total=total)
         order=Order.objects.last()
