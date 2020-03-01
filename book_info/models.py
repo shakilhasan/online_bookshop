@@ -13,7 +13,7 @@ class Book_info(models.Model):
     author= models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
     price = models.IntegerField()
-    available = models.BooleanField(default=False)
+    available = models.BooleanField(default=True)
     catagory = models.ForeignKey(Catagory, on_delete=models.CASCADE)
 
     def __str__(self):

@@ -21,7 +21,7 @@
   </ul>
 </div>
 <h2>Items:</h2>
-{% for card in card %}
+<!-- {% for card in card %}
 {% if card.sold == True %}
 <div class="card" style="width:160px; margin-left:10px; float:left">
   <a href="#" class="btn btn-primary">{{ card.user }}</a>
@@ -36,5 +36,29 @@
   </div>
 </div>
 {% endif %}
+{% endfor %} -->
+
+<div class="row text-center">
+{% for card in card %}
+{% if card.sold == True %}
+  <div class="col-lg-3 col-md-6 mb-4">
+    <div class="card h-100">
+      <a href="#" class="btn btn-primary">{{ card.user }}</a>
+      <a href="#"><img class="card-img-top" src="{{ card.book.cover.url }}"  alt="Card image"></a>
+      <div class="card-body">
+        <a  class="card-title" href="#" ><h4 class="card-title">{{ card.book.name }}</h4></a>
+        <p class="card-text">{{ card.book.author }}</p>
+        <p class="card-text">price: {{ card.book.price }}</p>
+        <p class="card-text">amount: {{ card.amount }}</p>
+     </div>
+      <div class="card-footer">
+          <a class="btn btn-danger" href="#">Edit</a>
+          <a class="btn btn-danger" href="{% url 'card_delete' card.id %}">Finish</a>
+      </div>
+  </div>
+  </div>
+{% endif %}
 {% endfor %}
+</div>
+
 {% endblock %}

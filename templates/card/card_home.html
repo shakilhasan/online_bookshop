@@ -2,20 +2,27 @@
 {% block content %}
 <p id="demo"></p>
 <script> var t_price = 0; </script>
+
+<div class="row text-center">
 {% for card in card %}
 {% if card.sold == False %}
-<div class="card" style="width:160px; margin-left:10px; float:left">
-  <a href="#"><img class="card-img-top" src="{{ card.book.cover.url }}"  alt="Card image"></a>
-  <div class="card-body">
-    <a  class="card-title" href="#" ><h4 class="card-title">{{ card.book.name }}</h4></a>
-    <p class="card-text">{{ card.book.author }}</p>
-    <p class="card-text">price: {{ card.book.price }}</p>
-    <p class="card-text">amount: {{ card.amount }}</p>
-    <a href="#" class="btn btn-primary">...</a>
-    <a class="btn btn-danger" href="#">...</a>
-    <a class="btn btn-danger" href="{% url 'card_delete' card.id %}">Delete</a>
+  <div class="col-lg-3 col-md-6 mb-4">
+    <div class="card h-100">
+      <a href="#"><img class="card-img-top" src="{{ card.book.cover.url }}"  alt="Card image"></a>
+      <div class="card-body">
+        <a  class="card-title" href="#" ><h4 class="card-title">{{ card.book.name }}</h4></a>
+        <p class="card-text">{{ card.book.author }}</p>
+        <p class="card-text">price: {{ card.book.price }}</p>
+        <p class="card-text">amount: {{ card.amount }}</p>
+     </div>
+      <div class="card-footer">
+          <a class="btn btn-danger" href="#">Edit</a>
+          <a class="btn btn-danger" href="{% url 'card_delete' card.id %}">Finish</a>
+      </div>
   </div>
-</div>
+  </div>
+
+
 
 <script>
 var t_price = t_price+ {{ card.book.price }} *{{ card.amount }};
@@ -25,5 +32,7 @@ document.getElementById("demo").innerHTML =
 
 {% endif %}
 {% endfor %}
+</div>
+
 <a href="{% url 'shipping'  %}" class="btn btn-outline-success">Go to Shipping Page</a>
 {% endblock %}
