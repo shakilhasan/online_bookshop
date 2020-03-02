@@ -1,6 +1,6 @@
 # online_bookshop
-This is my personal interest project which is not completely implemented yet.
-This is mainly an online shop website where student can buy books I am doing
+This is my personal interest project . Payment section is not completely implemented yet.
+This is mainly an online Book-shop website where student can buy books . I am doing
 this project using Python Django framework
 
-Link: https://bookshop-ecommerce.herokuapp.com/
+At Heroku: https://bookshop-ecommerce.herokuapp.com/
