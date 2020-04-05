@@ -29,6 +29,7 @@ urlpatterns = [
     path('logout/', views.ulogout, name='logout'),
     path('', include('book_info.urls'), name='book_info'),
     path('', include('buy.urls'), name='buy'),
+    path('', include('api.urls'), name='api'),
 
 ]
 

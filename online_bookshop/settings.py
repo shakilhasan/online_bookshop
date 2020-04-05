@@ -29,6 +29,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'book_info',
     'buy',
+    'rest_framework',
+    'api',
+    'corsheaders'
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -39,6 +42,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware', # new! for api
 ]
 ROOT_URLCONF = 'online_bookshop.urls'
 TEMPLATES = [
@@ -99,5 +103,6 @@ os.path.join(BASE_DIR, "static"),
 STATICFILES_STORAGE ='whitenoise.django.GzipManifestStaticFilesStorage' #new! for heroku
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+CORS_ORIGIN_ALLOW_ALL = True  #new! for api
 # Activate Django-Heroku.
 django_heroku.settings(locals()) #new! for heroku
