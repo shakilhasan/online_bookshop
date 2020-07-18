@@ -5,7 +5,29 @@ from .forms import CatagoryForm
 from .forms import BookAddForm
 from django.shortcuts import redirect
 
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .serializers import PostSerializer
 # Create your views here.
+
+@api_view(['GET'])
+def post_collection(request):
+    if request.method == 'GET':
+        posts = Book_info.objects.all()
+        serializer = PostSerializer(posts, many=True)
+        return Response(serializer.data)
+
+@api_view(['GET'])
+def post_element(request, pk):
+    try:
+        post = Book_info.objects.get(pk=pk)
+    except Book_info.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = PostSerializer(post)
+        return Response(serializer.data)
+#....................
 
 def book_home(request):
     book = Book_info.objects.all();
