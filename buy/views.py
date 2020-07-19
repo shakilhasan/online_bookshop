@@ -10,8 +10,23 @@ from django.template import loader
 from django.http import HttpResponse
 from django.http import Http404
 from django.http import HttpResponseRedirect
+
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 # Create your views here.
 
+@api_view()
+def check_order(request, order_number):
+    is_exist = Order.objects.filter(id=order_number).exists()
+    #return JsonResponse({'status': is_exist})
+    return Response({'status': is_exist})
+
+def checking(request):
+    template = loader.get_template('buy/check_order.html')
+    context = {}
+    return HttpResponse(template.render(context, request))
+
+#............
 def card_add(request):
     if request.user.is_authenticated:
         name= request.user.username

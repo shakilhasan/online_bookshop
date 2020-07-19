@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
 <div class="container">
   <button onclick="window.location.href = '{% url 'order_delete' order.id %}';"

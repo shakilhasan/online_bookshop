@@ -32,7 +32,6 @@ INSTALLED_APPS = [
     'book_info',
     'buy',
     'rest_framework',
-    'api',
     'corsheaders'
 ]
 MIDDLEWARE = [
