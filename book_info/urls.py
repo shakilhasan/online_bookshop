@@ -15,7 +15,8 @@ urlpatterns = [
     path('catagory_detail/<int:catagory_id>/', views.catagory_detail, name='catagory_detail'),
 
 # api
-    path('api/v1/posts/',  views.post_collection, name= 'post_collection'),
-    path('api/v1/posts/<int:pk>/', views.post_element, name='post_element'),
+    path('bookapi/api/v1/posts/',  views.post_collection, name= 'post_collection'),
+    path('bookapi/api/v1/posts/<int:pk>/', views.post_element, name='post_element'),
+    path('bookapi/', views.bookapi ,name='bookapi'),
 
  ]

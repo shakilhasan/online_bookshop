@@ -1,0 +1,96 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>BOOKS</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Foundation & FontAwesome -->
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/foundation/5.2.3/css/foundation.css">
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/trianglify/0.1.2/trianglify.min.js"></script>
+
+    <script type="text/javascript">
+    // random background pattern
+    $(function(){
+
+      // See more options here: https://github.com/qrohlf/trianglify#options
+      var ops = {
+        noiseIntensity: 0,
+      }
+      var t = new Trianglify(ops);
+      var pattern = t.generate(document.body.clientWidth, document.body.clientHeight);
+      document.body.setAttribute('style', 'background-image: '+pattern.dataUrl);
+    });
+    </script>
+      <style type="text/css">
+      .comment{
+        background:rgba(255,255,255,1);
+        padding: 8px;
+        margin-bottom:5px;
+        border:none;
+      }
+      .white{
+        background:rgba(255,255,255,1);
+        padding-top: 10px;
+        border:none;
+      }
+      .commentcenter{
+        position:relative;
+        left:43%;
+      }
+      input.textarea:focus{
+        height:1.5em;
+        resize:none;
+      }
+      textarea{
+        height:1.5em;
+        resize:none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <br><br>
+    <div class="row white">
+        <div class="large-12 columns">
+            <a href="/logout" class="right">Logout</a>
+            <h2>Hi, {{request.user.username}}</h2>
+        </div>
+    </div>
+
+    <div class="row white">
+        <div class="columns large-12">
+            <form method="POST" id="post-form">
+                {% csrf_token %}
+                <div class="fieldWrapper" id="the_post">
+                    {{ form.text }}
+
+                </div>
+                <div id="results"></div>
+                <input type="submit" value="Post" class="tiny button">
+            </form>
+        </div>
+    </div>
+
+    <!-- The feed -->
+    <div class="row white">
+        <div class="columns large-12">
+            <ul id="talk">
+                {% for post in all_posts %}
+                    <li id='post-{{post.pk}}'>
+                        <strong>{{ post.name }}</strong> -
+                        <em>{{ post.author }}</em> -
+                        <span>{{ post.created }}</span> -
+                        <a id='delete-post-{{post.id}}'>delete me</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment.min.js"></script>
+    <script src="{% static 'book_info/js/bookapi.js' %}"></script>
+
+  </body>
+</html>

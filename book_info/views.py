@@ -14,12 +14,26 @@ from rest_framework.response import Response
 from .serializers import PostSerializer
 # Create your views here.
 
-@api_view(['GET'])
+# api.........
+def bookapi(request):
+    template = loader.get_template('book_info/bookapi.html')
+    context = {}
+    return HttpResponse(template.render(context, request))
+
+@api_view(['GET', 'POST'])
 def post_collection(request):
     if request.method == 'GET':
         posts = Book_info.objects.all()
         serializer = PostSerializer(posts, many=True)
         return Response(serializer.data)
+    elif request.method == 'POST':
+        data = {'text': request.DATA.get('the_post'), 'author': request.user}
+        serializer = PostSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['GET'])
 def post_element(request, pk):
@@ -44,7 +58,6 @@ def book_detail(request,book_id):
     template = loader.get_template('book_info/book_detail.html')
     book=Book_info.objects.get(id=book_id)
     context = { 'book' : book }
-    return HttpResponse(template.render(context, request))
     return HttpResponse(template.render(context, request))
 
 

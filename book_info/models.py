@@ -15,6 +15,7 @@ class Book_info(models.Model):
     price = models.IntegerField()
     available = models.BooleanField(default=True)
     catagory = models.ForeignKey(Catagory, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
