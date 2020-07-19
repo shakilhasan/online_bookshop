@@ -4,6 +4,10 @@ from .models import Catagory
 from .forms import CatagoryForm
 from .forms import BookAddForm
 from django.shortcuts import redirect
+from django.template import loader
+from django.http import HttpResponse
+from django.http import Http404
+from django.http import HttpResponseRedirect
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -30,16 +34,22 @@ def post_element(request, pk):
 #....................
 
 def book_home(request):
+    template = loader.get_template('book_info/book_home.html')
     book = Book_info.objects.all();
     context = { 'book' : book }
-    return render(request,'book_info/book_home.html',context)
+    return HttpResponse(template.render(context, request))
+
 
 def book_detail(request,book_id):
+    template = loader.get_template('book_info/book_detail.html')
     book=Book_info.objects.get(id=book_id)
-    return render(request,'book_info/book_detail.html',{'book':book})
+    context = { 'book' : book }
+    return HttpResponse(template.render(context, request))
+    return HttpResponse(template.render(context, request))
 
 
 def catagory_add(request):
+    template = loader.get_template('book_info/catagory_add.html')
     if request.user.is_superuser:
         if request.method == 'POST':
             form = CatagoryForm(request.POST)
@@ -48,10 +58,12 @@ def catagory_add(request):
                 return redirect('catagory_add')
         else :
             form = CatagoryForm
-        return render(request, 'book_info/catagory_add.html', {'form':form})
+        context = {'form':form}
+        return HttpResponse(template.render(context, request))
 
 
 def book_add(request):
+    template = loader.get_template('book_info/book_add.html')
     if request.user.is_superuser:
         if request.method == 'POST':
             form = BookAddForm(request.POST, request.FILES)
@@ -60,10 +72,11 @@ def book_add(request):
                 return redirect('book_add')
         else:
             form = BookAddForm
-        return render(request,'book_info/book_add.html', {'form':form})
-
+        context = {'form':form}
+        return HttpResponse(template.render(context, request))
 
 def book_edit(request,book_id):
+    template = loader.get_template('book_info/book_edit.html')
     if request.user.is_superuser:
         book = Book_info.objects.get(id=book_id)
         if request.method == 'POST':
@@ -73,7 +86,8 @@ def book_edit(request,book_id):
                 return redirect('book_home')
         else:
             form = BookAddForm(instance=book)
-        return render(request, 'book_info/book_edit.html', {'form':form})
+        context = {'form':form}
+        return HttpResponse(template.render(context, request))
 
 
 def book_delete(request,book_id):
@@ -83,14 +97,17 @@ def book_delete(request,book_id):
         return redirect('book_home')
 
 def catagory_home(request):
+    template = loader.get_template('book_info/catagory_home.html')
     catagory = Catagory.objects.all()
-    return render(request, 'book_info/catagory_home.html',{'catagory':catagory})
+    context = {'catagory':catagory}
+    return HttpResponse(template.render(context, request))
 
 def catagory_detail(request,catagory_id):
+    template = loader.get_template('book_info/catagory_detail.html')
     catagory = Catagory.objects.get(id=catagory_id)
     book = Book_info.objects.filter(catagory=catagory)
     context = {
     'catagory':catagory,
     'book':book,
     }
-    return render(request, 'book_info/catagory_detail.html', context)
+    return HttpResponse(template.render(context, request))

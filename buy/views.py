@@ -6,6 +6,10 @@ from .forms import OrderForm
 from book_info.models import Book_info
 from django.shortcuts import redirect
 from django.contrib.auth.models import User
+from django.template import loader
+from django.http import HttpResponse
+from django.http import Http404
+from django.http import HttpResponseRedirect
 # Create your views here.
 
 def card_add(request):
@@ -26,22 +30,29 @@ def card_add(request):
     return redirect('book_home')
 
 def card_home(request):
+    template = loader.get_template('buy/card_home.html')
     if request.user.is_authenticated:
         name= request.user.username
         u=User.objects.get(username=name)
     card = Card.objects.filter(user=u)
-    return render(request,'card/card_home.html',{'card':card,})
+    context ={'card':card}
+    return HttpResponse(template.render(context, request))
+
 def order(request):
+    template = loader.get_template('buy/order.html')
     if request.user.is_superuser:
         order = Order.objects.all()
         u = User.objects.all()
-        return render(request,'card/order.html',{'order':order,'u':u})
+        context = {'order':order,'u':u}
+        return HttpResponse(template.render(context, request))
 
 def order_detail(request,order_id):
+    template = loader.get_template('buy/order_detail.html')
     if request.user.is_superuser:
         order = Order.objects.get(id=order_id)
         card = Card.objects.filter(order=order)
-        return render(request,'card/order_detail.html',{'card':card,'order':order})
+        context = {'card':card,'order':order}
+        return HttpResponse(template.render(context, request))
 
 def order_delete(request,order_id):
     if request.user.is_superuser:
@@ -68,6 +79,7 @@ def checkout(request):
         return redirect('book_home')
 
 def shipping(request):
+    template = loader.get_template('buy/shipping.html')
     if request.user.is_authenticated:
         name= request.user.username
         u=User.objects.get(username=name)
@@ -84,8 +96,11 @@ def shipping(request):
         return redirect('payment')
     else:
         form = OrderForm()
-        return render(request, 'card/shipping.html', {'form':form,'card':card,})
+        context = {'form':form,'card':card}
+        return HttpResponse(template.render(context, request))
 
 def payment(request):
+    template = loader.get_template('buy/payment.html')
     if request.user.is_authenticated:
-        return render(request,'card/payment.html')
+        context = {}
+        return HttpResponse(template.render(context, request))
