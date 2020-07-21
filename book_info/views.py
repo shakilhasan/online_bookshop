@@ -9,9 +9,13 @@ from django.http import HttpResponse
 from django.http import Http404
 from django.http import HttpResponseRedirect
 
+from django.http.response import JsonResponse
+from rest_framework.parsers import JSONParser
+from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import PostSerializer
+from .serializers import CatagorySerializer
 # Create your views here.
 
 # api.........
@@ -27,7 +31,8 @@ def post_collection(request):
         serializer = PostSerializer(posts, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':
-        data = {'text': request.DATA.get('the_post'), 'author': request.user}
+        #data = JSONParser().parse(request)
+        data = {'name': request.data.get('the_post'), 'author': request.user.pk}
         serializer = PostSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
@@ -35,7 +40,7 @@ def post_collection(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET'])
+@api_view(['GET','DELETE'])
 def post_element(request, pk):
     try:
         post = Book_info.objects.get(pk=pk)
@@ -45,6 +50,11 @@ def post_element(request, pk):
     if request.method == 'GET':
         serializer = PostSerializer(post)
         return Response(serializer.data)
+
+    elif request.method == 'DELETE':
+        post.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 #....................
 
 def book_home(request):

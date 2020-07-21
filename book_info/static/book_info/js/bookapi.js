@@ -64,6 +64,7 @@ $(function() {
                     "</span> - <a id='delete-post-"+json.id+"'>delete me</a></li>");
                 console.log("success"); // another sanity check
             },
+
             // handle a non-successful response
             error : function(xhr,errmsg,err) {
                 $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+

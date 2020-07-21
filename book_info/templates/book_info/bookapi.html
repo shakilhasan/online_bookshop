@@ -1,4 +1,5 @@
 {% load static %}
+{% load crispy_forms_tags %}
 <!doctype html>
 <html lang="en">
 
@@ -66,7 +67,7 @@
                 {% csrf_token %}
                 <div class="fieldWrapper" id="the_post">
                     {{ form.text }}
-
+                       <!-- <input  type="text"></input> -->
                 </div>
                 <div id="results"></div>
                 <input type="submit" value="Post" class="tiny button">
