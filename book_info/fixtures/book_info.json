@@ -1,0 +1,45 @@
+[{
+	"model": "book_info.catagory",
+	"pk": 1,
+	"fields": {
+		"name": "Dairy"
+	}
+}, {
+	"model": "book_info.catagory",
+	"pk": 2,
+	"fields": {
+		"name": "Meat"
+	}
+}, {
+	"model": "book_info.book_info",
+	"pk": 1,
+	"fields": {
+		"name": "Eggs",
+		"description": "Good old eggs",
+		"catagory": 1
+	}
+}, {
+	"model": "book_info.book_info",
+	"pk": 2,
+	"fields": {
+		"name": "Milk",
+		"description": "Comes from a cow",
+		"catagory": 1
+	}
+}, {
+	"model": "book_info.book_info",
+	"pk": 3,
+	"fields": {
+		"name": "Beef",
+		"description": "Much like milk, this comes from a cow",
+		"catagory": 2
+	}
+}, {
+	"model": "book_info.book_info",
+	"pk": 4,
+	"fields": {
+		"name": "Chicken",
+		"description": "Definitely doesn't come from a cow",
+		"catagory": 2
+	}
+}]

@@ -31,8 +31,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'book_info',
     'buy',
+
     'rest_framework',
     'crispy_forms',
+    'graphene_django',
     'corsheaders'
 ]
 MIDDLEWARE = [
@@ -110,3 +112,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 CORS_ORIGIN_ALLOW_ALL = True  #new! for api
 # Activate Django-Heroku.
 django_heroku.settings(locals()) #new! for heroku
+
+GRAPHENE = {
+    'SCHEMA': 'online_bookshop.schema.schema'
+}
