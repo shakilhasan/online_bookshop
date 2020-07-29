@@ -20,9 +20,12 @@ from django.conf import settings # new
 from django.conf.urls.static import static
 from . import views
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from graphene_django.views import GraphQLView
 from django.views.decorators.csrf import csrf_exempt
 
+class PrivateGraphQLView(LoginRequiredMixin, GraphQLView):
+    pass
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('signup/', views.usignup, name='signup'),
@@ -31,7 +34,7 @@ urlpatterns = [
     path('', include('book_info.urls'), name='book_info'),
     path('', include('buy.urls'), name='buy'),
 
-    path("graphql/", csrf_exempt(GraphQLView.as_view(graphiql=True))),
+    path("graphql/", csrf_exempt(PrivateGraphQLView.as_view(graphiql=True))),
 ]
 
 if settings.DEBUG: # new
