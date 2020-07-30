@@ -99,10 +99,12 @@
       <!-- Grid column -->
       <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
         <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
-        <p>  <a href="http://127.0.0.1:8000/checking/">/checking</a>  </p>
-        <p>  <a href="http://127.0.0.1:8000/bookapi/api/v1/posts/2/">/bookapi/api/v1/posts/2</a>  </p>
-        <p>  <a href="http://127.0.0.1:8000/bookapi/">/bookapi</a>  </p>
-        <p>  <a href="http://127.0.0.1:8000/graphql/">/graphql</a>  </p>
+        <p>  <a href="{% url 'checking' %}">/checking</a>  </p>
+        <p>  <a id="api_v1_posts" href="#">/bookap/api/v1/posts</a>  </p>
+        <p>  <a href="{% url 'bookapi' %}">/bookapi</a>  </p>
+        <p>  <a id="graphql" href="#">/graphql</a>  </p>
+
+
       </div>
       <!-- Grid column -->
       <hr class="w-100 clearfix d-md-none">
@@ -173,6 +175,12 @@
 </footer>
 <!-- Footer -->
     <!-- Bootstrap core JavaScript -->
+    <script>
+      var x = window.location.href
+      document.getElementById("graphql").href= x+"graphql";
+      document.getElementById("api_v1_posts").href= x+"bookapi/api/v1/posts/";
+    </script>
+
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     </body>

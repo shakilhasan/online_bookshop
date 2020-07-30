@@ -3,4 +3,4 @@ This is my personal interest project . Payment section is not completely impleme
 This is mainly an online Book-shop website where student can buy books . I am doing
 this project using Python Django framework
 
-At Heroku: https://bookshop-ecommerce.herokuapp.com/
+At Heroku: https://alamanah.herokuapp.com/

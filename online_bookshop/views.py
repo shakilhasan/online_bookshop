@@ -4,15 +4,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import redirect
 
-import requests
-
-def index(request):
-    r = requests.get('http://httpbin.org/status/418')
-    print(r.text)
-    return HttpResponse('<pre>' + r.text + '</pre>')
-
-
-
 def usignup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
