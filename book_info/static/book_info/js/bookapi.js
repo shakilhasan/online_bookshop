@@ -1,11 +1,13 @@
 $(function() {
 
+  var arr = window.location.href.split("/");
+  var api_url = arr[0] + "//" + arr[2]+'/bookapi/api/v1/posts/'
     load_posts()
 
     // Load all posts on page load
     function load_posts() {
         $.ajax({
-            url : "api/v1/posts/", // the endpoint
+            url : api_url, // the endpoint
             type : "GET", // http method
             // handle a successful response
             success : function(json) {
@@ -51,7 +53,7 @@ $(function() {
     function create_post() {
         console.log("create post is working!") // sanity check
         $.ajax({
-            url : "api/v1/posts/", // the endpoint
+            url : api_url, // the endpoint
             type : "POST", // http method
             data : { the_post : $('#post-text').val() }, // data sent with the post request
             // handle a successful response
@@ -78,7 +80,7 @@ $(function() {
     function delete_post(post_primary_key){
         if (confirm('are you sure you want to remove this post?')==true){
             $.ajax({
-                url : "api/v1/posts/"+post_primary_key, // the endpoint
+                url : api_url+post_primary_key, // the endpoint
                 type : "DELETE", // http method
                 data : { postpk : post_primary_key }, // data sent with the delete request
                 success : function(json) {
