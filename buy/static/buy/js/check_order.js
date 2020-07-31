@@ -1,7 +1,10 @@
 $(document).ready(function(){
     $("#button").click(function(){
       var order = $('#id_order').val();
-      var api_url = 'http://localhost:8000/check/'+order
+      //var api_url = 'http://localhost:8000/check/'+order
+      var arr = window.location.href.split("/");
+      var api_url = arr[0] + "//" + arr[2]+'/check/'+order
+
       $.ajax({
               url: api_url,
               method: 'get',
