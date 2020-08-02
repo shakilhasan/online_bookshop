@@ -41,7 +41,7 @@
     </li>
 
     <li class="nav-item">
-      <a class="nav-link" href="http://127.0.0.1:8000/admin/">admin</a>
+      <a class="nav-link" id="admin" href="#">admin</a>
     </li>
 
     {% endif %}
@@ -99,8 +99,7 @@
       <!-- Grid column -->
       <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
         <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
-
-        <p>  <a href="{% url 'cgpa:result_home' %}">CGPA</a>  </p>        
+        <p>  <a href="{% url 'cgpa:student_add' %}">CGPA</a>  </p>
         <p>  <a href="{% url 'checking' %}">/checking</a>  </p>
         <p>  <a id="api_v1_posts" href="#">/bookap/api/v1/posts</a>  </p>
         <p>  <a href="{% url 'bookapi' %}">/bookapi</a>  </p>
@@ -179,6 +178,7 @@
     <!-- Bootstrap core JavaScript -->
     <script>
       var x = window.location.href
+      document.getElementById("admin").href= x+"admin";
       document.getElementById("graphql").href= x+"graphql";
       document.getElementById("api_v1_posts").href= x+"bookapi/api/v1/posts/";
     </script>

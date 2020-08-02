@@ -16,111 +16,130 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 #...........student.......................
+@login_required(login_url='/login/')
 def student_add(request):
     template = loader.get_template('cgpa/student_add.html')
-    if request.user.is_superuser:
-        if request.method == 'POST':
-            form = StudentForm(request.POST, request.FILES)
-            if form.is_valid():
-                obj = form.save(commit=False)
-                obj.user = request.user
-                obj.save()
-                # form.save()
-                return redirect('cgpa:student_add')
-        else:
-            form = StudentForm
-        context = {'form':form}
-        return HttpResponse(template.render(context, request))
+    if request.method == 'POST':
+        form = StudentForm(request.POST, request.FILES)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.user = request.user
+            obj.save()
+            # form.save()
+            return redirect('cgpa:student_add')
+    else:
+        form = StudentForm
+    context = {'form':form}
+    return HttpResponse(template.render(context, request))
 
 def student_home(request):
+    if not Student.objects.filter(user=request.user).exists():
+        return redirect('cgpa:student_add')
     template = loader.get_template('cgpa/student_home.html')
-    student = Student.objects.all();
+    student = Student.objects.get(user=request.user)
     context = { 'student' : student }
     return HttpResponse(template.render(context, request))
 
 def student_edit(request,student_id):
     template = loader.get_template('cgpa/student_edit.html')
-    if request.user.is_superuser:
-        student = Student.objects.get(id=student_id)
-        if request.method == 'POST':
-            form = StudentForm(request.POST, request.FILES, instance=student)
-            if form.is_valid():
-                form.save()
-                return redirect('cgpa:student_home')
-        else:
-            form = StudentForm(instance=student)
-        context = {'form':form}
-        return HttpResponse(template.render(context, request))
+    student = Student.objects.get(id=student_id)
+    if request.method == 'POST':
+        form = StudentForm(request.POST, request.FILES, instance=student)
+        if form.is_valid():
+            form.save()
+            return redirect('cgpa:student_home')
+    else:
+        form = StudentForm(instance=student)
+    context = {'form':form}
+    return HttpResponse(template.render(context, request))
 
 def student_delete(request,student_id):
-    if request.user.is_superuser:
-        student = Student.objects.get(id=student_id)
-        student.delete()
-        return redirect('cgpa:student_home')
+    student = Student.objects.get(id=student_id)
+    student.delete()
+    return redirect('cgpa:student_home')
 
 
 #...........course.......................
 def course_add(request):
+    if not Student.objects.filter(user=request.user).exists():
+        return redirect('cgpa:student_add')
     template = loader.get_template('cgpa/course_add.html')
-    if request.user.is_superuser:
-        if request.method == 'POST':
-            form = CourseForm(request.POST)
-            if form.is_valid():
-                form.save()
-                return redirect('cgpa:course_add')
-        else :
-            form = CourseForm
-        context = {'form':form}
-        return HttpResponse(template.render(context, request))
+    student = Student.objects.get(user=request.user)
+    if request.method == 'POST':
+        form = CourseForm(request.POST)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.department = student.department
+            obj.university = student.university
+            obj.save()
+            grade_point= request.POST.get('grade_point')
+            if grade_point:
+                data = {
+                 'grade_point':grade_point,
+                 'user':request.user,
+                 'course':obj,
+                  }
+                cform=Result(**data)
+                cform.save()
+            return redirect('cgpa:course_add')
+    else :
+        form = CourseForm
+    context = {'form':form, 'student': student }
+    return HttpResponse(template.render(context, request))
 
 def course_home(request):
+    if not Student.objects.filter(user=request.user).exists():
+        return redirect('cgpa:student_add')
     template = loader.get_template('cgpa/course_home.html')
     course = Course.objects.all()
-    #s = Student.objects.all().delete()
-    context = { 'course' : course }
+    student = Student.objects.get(user=request.user)
+    context = { 'course' : course ,'student':student}
     return HttpResponse(template.render(context, request))
 
 def course_edit(request,course_id):
     template = loader.get_template('cgpa/course_edit.html')
-    if request.user.is_superuser:
-        course = Course.objects.get(id=course_id)
-        if request.method == 'POST':
-            form = CourseForm(request.POST, request.FILES, instance=course)
-            if form.is_valid():
-                form.save()
-                return redirect('cgpa:course_home')
-        else:
-            form = CourseForm(instance=course)
-        context = {'form':form}
-        return HttpResponse(template.render(context, request))
+    course = Course.objects.get(id=course_id)
+    if request.method == 'POST':
+        form = CourseForm(request.POST, request.FILES, instance=course)
+        if form.is_valid():
+            form.save()
+            return redirect('cgpa:course_home')
+    else:
+        form = CourseForm(instance=course)
+    context = {'form':form}
+    return HttpResponse(template.render(context, request))
 
 def course_delete(request,course_id):
-    if request.user.is_superuser:
-        student = Course.objects.get(id=course_id)
-        course.delete()
-        return redirect('cgpa:course_home')
+    course = Course.objects.get(id=course_id)
+    course.delete()
+    return redirect('cgpa:course_home')
 
 #...........result.......................
 def result_add(request):
+    if not Student.objects.filter(user=request.user).exists():
+        return redirect('cgpa:student_add')
     template = loader.get_template('cgpa/result_add.html')
-    if request.user.is_superuser:
-        if request.method == 'POST':
-            form = ResultForm(request.POST, request.FILES)
-            if form.is_valid():
-                obj = form.save(commit=False)
-                obj.user = request.user
-                obj.save()
-                # form.save()
-                return redirect('cgpa:result_add')
-        else:
-            form = ResultForm
-        context = {'form':form}
-        return HttpResponse(template.render(context, request))
+    if request.method == 'POST':
+        form = ResultForm(request.POST, request.FILES)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.user = request.user
+            obj.save()
+            # form.save()
+            return redirect('cgpa:result_add')
+    else:
+        form = ResultForm
+    context = {'form':form}
+    return HttpResponse(template.render(context, request))
 
 def result_home(request):
+    if not Student.objects.filter(user=request.user).exists():
+        return redirect('cgpa:student_add')    
     template = loader.get_template('cgpa/result_home.html')
     result = Result.objects.all();
     context = { 'result' : result }
@@ -128,20 +147,18 @@ def result_home(request):
 
 def result_edit(request,result_id):
     template = loader.get_template('cgpa/result_edit.html')
-    if request.user.is_superuser:
-        result = Result.objects.get(id=result_id)
-        if request.method == 'POST':
-            form = ResultForm(request.POST, request.FILES, instance=result)
-            if form.is_valid():
-                form.save()
-                return redirect('cgpa:result_home')
-        else:
-            form = ResultForm(instance=result)
-        context = {'form':form}
-        return HttpResponse(template.render(context, request))
+    result = Result.objects.get(id=result_id)
+    if request.method == 'POST':
+        form = ResultForm(request.POST, request.FILES, instance=result)
+        if form.is_valid():
+            form.save()
+            return redirect('cgpa:result_home')
+    else:
+        form = ResultForm(instance=result)
+    context = {'form':form}
+    return HttpResponse(template.render(context, request))
 
 def result_delete(request,result_id):
-    if request.user.is_superuser:
-        result = Result.objects.get(id=result_id)
-        result.delete()
-        return redirect('cgpa:result_home')
+    result = Result.objects.get(id=result_id)
+    result.delete()
+    return redirect('cgpa:result_home')

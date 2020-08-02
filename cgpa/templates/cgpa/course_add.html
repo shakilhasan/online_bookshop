@@ -2,9 +2,11 @@
 {% load static %}
 
 {% block content %}
-
+<h4>university: {{ student.university }}</h4>
+<h4>department: {{ student.department }}</h4><br>
     <form method="POST" class="form-horizontal"> {% csrf_token %}
         {{ form.as_p }}
+        grade_point: <input type="number" name="grade_point" step="any"></input><br>        
         <button type="submit" class="btn btn-primary">Save</button>
     </form>
 

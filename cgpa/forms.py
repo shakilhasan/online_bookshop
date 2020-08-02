@@ -12,7 +12,7 @@ class StudentForm(forms.ModelForm):
 class CourseForm(forms.ModelForm):
     class Meta:
         model = Course
-        fields = ['course_no','credit_hours','course_title','level_term']
+        fields = ['cover','course_no','course_title','credit_hours','level_term']
         #fields = '__all__'
 
 class ResultForm(forms.ModelForm):

@@ -14,7 +14,7 @@
          <!-- <div class="page-header page-header-custom " >
             <h1 class="text-center">Online Book Shop</h1>
          </div> -->
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top"  >
+<nav class="navbar navbar-expand-sm bg-success navbar-dark fixed-top"  >
   <div class="container">
   <!-- Brand/logo -->
   <a class="navbar-brand" href="{% url 'book_home' %}">Bookshop</a>
@@ -23,8 +23,6 @@
   <div class="collapse navbar-collapse" id="navbarResponsive">
   <ul class="navbar-nav ml-auto">
     {% if user.is_authenticated %}
-    {% if user.is_superuser %}
-
     <li class="nav-item ">
       <a class="nav-link" href="{% url 'cgpa:student_add' %}">add Student</a>
     </li>
@@ -50,20 +48,9 @@
     </li>
 
     <li class="nav-item">
-      <a class="nav-link" href="http://127.0.0.1:8000/admin/">admin</a>
-    </li>
-
-    {% endif %}
-    {% if not user.is_superuser %}
-    <li class="nav-item">
-      <a class="nav-link " href="{% url 'card_home' %}">Card</a>
-    </li>
-    {% endif %}
-
-    <li class="nav-item">
       <a class="nav-link" >{{user.username}}</a>
     </li>
-
+    
     <li class="nav-item">
       <a class="nav-link" href="{% url 'logout' %}" >Logout</a>
     </li>
@@ -83,7 +70,7 @@
 </div>
 </nav>
 
-<div class="container">
+<div class="container-fluid">
 
 <!-- Jumbotron Header -->
       <div class="jumbotron">
@@ -186,6 +173,7 @@
     <!-- Bootstrap core JavaScript -->
     <script>
       var x = window.location.href
+      document.getElementById("admin").href= x+"admin";
       document.getElementById("graphql").href= x+"graphql";
       document.getElementById("api_v1_posts").href= x+"bookapi/api/v1/posts/";
     </script>

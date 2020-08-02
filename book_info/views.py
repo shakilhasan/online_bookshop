@@ -55,8 +55,7 @@ def post_element(request, pk):
         post.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-#....................
-
+#..............................
 def book_home(request):
     template = loader.get_template('book_info/book_home.html')
     book = Book_info.objects.all();
