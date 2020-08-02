@@ -22,22 +22,31 @@
 
   <div class="collapse navbar-collapse" id="navbarResponsive">
   <ul class="navbar-nav ml-auto">
-    <li class="nav-item ">
-      <a class="nav-link" href="{% url 'catagory_home' %}">catagory</a>
-    </li>
-
     {% if user.is_authenticated %}
     {% if user.is_superuser %}
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'book_add' %}">add book</a>
+
+    <li class="nav-item ">
+      <a class="nav-link" href="{% url 'cgpa:student_add' %}">add Student</a>
+    </li>
+
+    <li class="nav-item ">
+      <a class="nav-link" href="{% url 'cgpa:student_home' %}">Student</a>
     </li>
 
     <li class="nav-item">
-      <a class="nav-link" href="{% url 'catagory_add' %}">add catagory</a>
+      <a class="nav-link" href="{% url 'cgpa:course_add' %}">add course</a>
+    </li>
+
+    <li class="nav-item ">
+      <a class="nav-link" href="{% url 'cgpa:course_home' %}">Courses</a>
     </li>
 
     <li class="nav-item">
-      <a class="nav-link" href="{% url 'order' %}">Orders</a>
+      <a class="nav-link" href="{% url 'cgpa:result_add' %}">add Result</a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'cgpa:result_home' %}">Results</a>
     </li>
 
     <li class="nav-item">
@@ -99,8 +108,6 @@
       <!-- Grid column -->
       <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
         <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
-
-        <p>  <a href="{% url 'cgpa:result_home' %}">CGPA</a>  </p>        
         <p>  <a href="{% url 'checking' %}">/checking</a>  </p>
         <p>  <a id="api_v1_posts" href="#">/bookap/api/v1/posts</a>  </p>
         <p>  <a href="{% url 'bookapi' %}">/bookapi</a>  </p>

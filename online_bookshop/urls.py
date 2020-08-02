@@ -33,6 +33,7 @@ urlpatterns = [
     path('logout/', views.ulogout, name='logout'),
     path('', include('book_info.urls'), name='book_info'),
     path('', include('buy.urls'), name='buy'),
+    path('', include('cgpa.urls'), name='cgpa'),
 
     path("graphql/", csrf_exempt(PrivateGraphQLView.as_view(graphiql=True))),
 ]

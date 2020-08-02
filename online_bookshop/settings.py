@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'book_info',
     'buy',
+    'cgpa',
 
     'rest_framework',
     'crispy_forms',
