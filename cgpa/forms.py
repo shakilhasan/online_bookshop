@@ -3,6 +3,17 @@ from .models import Student
 from .models import Course
 from .models import Result
 
+TITLE_CHOICES = [
+('11', 11),
+('12', 12),
+('21', 21),
+('22', 22),
+('31', 31),
+('32', 32),
+('41', 41),
+('42', 42),
+]
+
 class StudentForm(forms.ModelForm):
     class Meta:
         model = Student
@@ -12,6 +23,9 @@ class StudentForm(forms.ModelForm):
 class CourseForm(forms.ModelForm):
     class Meta:
         model = Course
+        level_term = forms.IntegerField(
+                widget=forms.Select(choices=TITLE_CHOICES),
+            )
         fields = ['cover','course_no','course_title','credit_hours','level_term']
         #fields = '__all__'
 

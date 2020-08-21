@@ -6,8 +6,10 @@ from django.urls import path
 
 
 urlpatterns = [
-    path('card_add/', views.card_add, name='card_add'),
+    path('card_add/<int:book_id>/', views.card_add, name='card_add'),
+    #path('card_add/', views.card_add, name='card_add'),
     path('card_home', views.card_home, name='card_home'),
+    path('card_update', views.card_update, name='card_update'),    
     path('card_delete/<int:card_id>/', views.card_delete, name='card_delete'),
     path('shipping', views.shipping, name='shipping'),
     path('checkout', views.checkout, name='checkout'),

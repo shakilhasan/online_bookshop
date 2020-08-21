@@ -27,31 +27,38 @@ def checking(request):
     return HttpResponse(template.render(context, request))
 
 #............
-def card_add(request):
+def card_add(request, book_id):
     if request.user.is_authenticated:
         name= request.user.username
         u= User.objects.get(username=name)
-    if request.method == 'POST':
-        book_id = request.POST.get('book_id')
-        amount= request.POST.get('amount')
-        book = Book_info.objects.get(id=book_id)
-        data = {
-         'user':u,
-         'book':book,
-         'amount':amount,
-          }
-        form=Card(**data)
-        form.save()
+    #if request.method == 'POST':
+    #book_id = request.POST.get('book_id')
+    #amount= request.POST.get('amount')
+    book = Book_info.objects.get(id=book_id)
+    data = {
+     'user':u,
+     'book':book,
+     #'amount':amount,
+      }
+    form=Card(**data)
+    form.save()
     return redirect('book_home')
 
 def card_home(request):
-    template = loader.get_template('buy/card_home.html')
+    template = loader.get_template('buy/card_home1.html')
     if request.user.is_authenticated:
         name= request.user.username
         u=User.objects.get(username=name)
     card = Card.objects.filter(user=u)
     context ={'card':card}
     return HttpResponse(template.render(context, request))
+
+def card_update(request):
+    if request.method == 'POST':
+        amount = request.POST.get('amount')
+        card_id = request.POST.get('card_id')
+        Card.objects.filter(id=card_id).update(amount=amount)
+        return redirect('card_home')
 
 def order(request):
     template = loader.get_template('buy/order.html')

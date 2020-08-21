@@ -57,7 +57,7 @@ def post_element(request, pk):
 
 #..............................
 def book_home(request):
-    template = loader.get_template('book_info/book_home.html')
+    template = loader.get_template('book_info/book_home1.html')
     book = Book_info.objects.all();
     context = { 'book' : book }
     return HttpResponse(template.render(context, request))
