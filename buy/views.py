@@ -13,6 +13,8 @@ from django.http import HttpResponseRedirect
 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 @api_view()
@@ -27,6 +29,7 @@ def checking(request):
     return HttpResponse(template.render(context, request))
 
 #............
+@login_required(login_url='/login/')
 def card_add(request, book_id):
     if request.user.is_authenticated:
         name= request.user.username

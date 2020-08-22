@@ -67,9 +67,15 @@
               <div class="card-product__img">
                 <img class="card-img" src="{{ book.cover.url }}" alt="">
                 <ul class="card-product__imgOverlay">
-                  <li><button><i class="ti-search"></i></button></li>
+                  <!-- <li><button><i class="ti-search"></i></button></li> -->
+                  {% if not user.is_superuser %}
                   <li><button onclick="window.location.href = '{% url 'card_add' book.id %}';"><i class="ti-shopping-cart"></i></button></li>
-                  <li><button><i class="ti-heart"></i></button></li>
+                  {% endif %}
+                  {% if user.is_superuser %}
+                  <li><button onclick="window.location.href = '{% url 'book_edit' book.id %}';"><i class="ti-notepad"></i></button></li>
+                  <li><button onclick="window.location.href = '{% url 'book_delete' book.id %}';"><i class="ti-trash"></i></button></li>
+                  {% endif %}
+                  <!-- <li><button><i class="ti-heart"></i></button></li> -->
                 </ul>
               </div>
               <div class="card-body">
@@ -81,40 +87,6 @@
             </div>
           </div>
 {% endfor %}
-          <div class="col-md-6 col-lg-4 col-xl-3">
-            <div class="card text-center card-product">
-              <div class="card-product__img">
-                <img class="card-img" src="{% static 'colorlib/img/product/product4.png' %}" alt="">
-                <ul class="card-product__imgOverlay">
-                  <li><button><i class="ti-search"></i></button></li>
-                  <li><button><i class="ti-shopping-cart"></i></button></li>
-                  <li><button><i class="ti-heart"></i></button></li>
-                </ul>
-              </div>
-              <div class="card-body">
-                <p>Decor</p>
-                <h4 class="card-product__title"><a href="single-product.html">Room Flash Light</a></h4>
-                <p class="card-product__price">$150.00</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4 col-xl-3">
-            <div class="card text-center card-product">
-              <div class="card-product__img">
-                <img class="card-img" src="{% static 'colorlib/img/product/product5.png' %}" alt="">
-                <ul class="card-product__imgOverlay">
-                  <li><button><i class="ti-search"></i></button></li>
-                  <li><button><i class="ti-shopping-cart"></i></button></li>
-                  <li><button><i class="ti-heart"></i></button></li>
-                </ul>
-              </div>
-              <div class="card-body">
-                <p>Accessories</p>
-                <h4 class="card-product__title"><a href="single-product.html">Man Office Bag</a></h4>
-                <p class="card-product__price">$150.00</p>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -290,7 +262,7 @@
           <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
             <div class="card card-blog">
               <div class="card-blog__img">
-                <img class="card-img rounded-0" src="{% static 'colorlib/img/blog/blog1.png' %}" alt="">
+                <img class="card-img rounded-0" src="{% static 'img/bookshop.jpeg' %}" alt="">
               </div>
               <div class="card-body">
                 <ul class="card-blog__info">
@@ -307,7 +279,7 @@
           <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
             <div class="card card-blog">
               <div class="card-blog__img">
-                <img class="card-img rounded-0" src="{% static 'colorlib/img/blog/blog2.png' %}" alt="">
+                <img class="card-img rounded-0" src="{% static 'img/bookshop.jpeg' %}" alt="">
               </div>
               <div class="card-body">
                 <ul class="card-blog__info">
@@ -324,7 +296,7 @@
           <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
             <div class="card card-blog">
               <div class="card-blog__img">
-                <img class="card-img rounded-0" src="{% static 'colorlib/img/blog/blog3.png' %}" alt="">
+                <img class="card-img rounded-0" src="{% static 'img/bookshop.jpeg' %}" alt="">
               </div>
               <div class="card-body">
                 <ul class="card-blog__info">
