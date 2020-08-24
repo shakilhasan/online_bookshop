@@ -24,6 +24,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from graphene_django.views import GraphQLView
 from django.views.decorators.csrf import csrf_exempt
 
+
 class PrivateGraphQLView(LoginRequiredMixin, GraphQLView):
     pass
 urlpatterns = [
@@ -36,6 +37,8 @@ urlpatterns = [
     path('', include('cgpa.urls'), name='cgpa'),
 
     path("graphql/", csrf_exempt(PrivateGraphQLView.as_view(graphiql=True))),
+
+    path("update_server/", views.update, name="update"),
 ]
 
 if settings.DEBUG: # new
