@@ -55,9 +55,11 @@ $(function() {
         $.ajax({
             url : api_url, // the endpoint
             type : "POST", // http method
-            data : { the_post : $('#post-text').val() }, // data sent with the post request
+            data : { the_post : $('#post-text').val(), }, // data sent with the post request
             // handle a successful response
             success : function(json) {
+                var pname = $("#post-text").val();
+                console.log(pname);
                 $('#post-text').val(''); // remove the value from the input
                 console.log(json); // log the returned json to the console
                 dateString = convert_to_readable_date(json.created)

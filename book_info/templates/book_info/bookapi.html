@@ -7,11 +7,11 @@
     <meta charset="UTF-8">
     <title>BOOKS</title>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" charset="utf-8" ></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8" ></script> -->
     <!-- Foundation & FontAwesome -->
     <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/foundation/5.2.3/css/foundation.css">
     <script src="http://d3js.org/d3.v3.min.js"></script>
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/trianglify/0.1.2/trianglify.min.js"></script>
-
     <script type="text/javascript">
     // random background pattern
     $(function(){
@@ -65,10 +65,10 @@
         <div class="columns large-12">
             <form method="POST" id="post-form">
                 {% csrf_token %}
-                <div class="fieldWrapper" id="the_post">
+                <!-- <div class="fieldWrapper" id="the_post">
                     {{ form.text }}
-                       <!-- <input  type="text"></input> -->
-                </div>
+                </div> -->
+                <input id="#post-text" type="text"></input>
                 <div id="results"></div>
                 <input type="submit" value="Post" class="tiny button">
             </form>
@@ -92,6 +92,15 @@
     </div>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment.min.js"></script>
     <script src="{% static 'book_info/js/bookapi.js' %}"></script>
+
+    <script type="text/javascript">
+    // random background pattern
+    $(function(){
+
+
+    });
+    </script>
+
 
   </body>
 </html>
