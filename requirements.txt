@@ -11,7 +11,7 @@ Babel==2.8.0
 backcall==0.2.0
 beautifulsoup4==4.9.1
 binaryornot==0.4.4
-bleach==3.1.5
+bleach==3.3.0
 certifi==2020.6.20
 cffi==1.14.2
 cfgv==2.0.1
