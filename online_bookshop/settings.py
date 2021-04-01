@@ -32,12 +32,13 @@ INSTALLED_APPS = [
     'book_info',
     'buy',
     'cgpa',
-
     'rest_framework',
     'crispy_forms',
     'graphene_django',
     'corsheaders'
 ]
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
