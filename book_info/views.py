@@ -16,9 +16,26 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import PostSerializer
 from .serializers import CatagorySerializer
-# Create your views here.
+from functools import wraps
 
+
+def auth(f):
+    @wraps(f)
+    def decorated(request,*arg, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect('/login')
+        return f(request,*arg,**kwargs)
+    return decorated
+
+def super(f):
+    @wraps(f)
+    def decorated(request,*arg, **kwargs):
+        if not request.user.is_superuser:
+            return HttpResponseRedirect('/login')
+        return f(request,*arg,**kwargs)
+    return decorated
 # api.........
+@auth
 def bookapi(request):
     template = loader.get_template('book_info/bookapi.html')
     context = {}
@@ -30,7 +47,7 @@ def post_collection(request):
         posts = Book_info.objects.all()
         serializer = PostSerializer(posts, many=True)
         return Response(serializer.data)
-    elif request.method == 'POST':
+    elif request.method == 'POST' and request.user.is_superuser:
         #data = JSONParser().parse(request)
         data = {'name': request.data.get('the_post'), 'author': request.user.pk}
         serializer = PostSerializer(data=data)
@@ -51,7 +68,7 @@ def post_element(request, pk):
         serializer = PostSerializer(post)
         return Response(serializer.data)
 
-    elif request.method == 'DELETE':
+    elif request.method == 'DELETE' and request.user.is_superuser:
         post.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -69,7 +86,7 @@ def book_detail(request,book_id):
     context = { 'book' : book }
     return HttpResponse(template.render(context, request))
 
-
+@super
 def catagory_add(request):
     template = loader.get_template('book_info/catagory_add.html')
     if request.user.is_superuser:
@@ -83,7 +100,7 @@ def catagory_add(request):
         context = {'form':form}
         return HttpResponse(template.render(context, request))
 
-
+@super
 def book_add(request):
     template = loader.get_template('book_info/book_add.html')
     if request.user.is_superuser:
@@ -97,6 +114,7 @@ def book_add(request):
         context = {'form':form}
         return HttpResponse(template.render(context, request))
 
+@super
 def book_edit(request,book_id):
     template = loader.get_template('book_info/book_edit.html')
     if request.user.is_superuser:
@@ -111,7 +129,7 @@ def book_edit(request,book_id):
         context = {'form':form}
         return HttpResponse(template.render(context, request))
 
-
+@super
 def book_delete(request,book_id):
     if request.user.is_superuser:
         books = Book_info.objects.get(id=book_id)
