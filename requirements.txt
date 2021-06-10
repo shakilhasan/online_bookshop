@@ -26,7 +26,7 @@ defusedxml==0.6.0
 distlib==0.3.1
 dj-database-url==0.5.0
 dj-static==0.0.6
-Django==2.2.16
+Django==2.2.24
 django-allauth==0.42.0
 django-appconf==1.0.4
 django-bKash==0.3
