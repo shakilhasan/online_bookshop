@@ -12,7 +12,7 @@ backcall==0.2.0
 beautifulsoup4==4.9.1
 binaryornot==0.4.4
 bleach==3.1.5
-certifi==2020.6.20
+certifi==2022.12.7
 cffi==1.14.2
 cfgv==2.0.1
 chardet==3.0.4
